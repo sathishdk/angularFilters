@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CricBuzz Application</title>
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+	<link href="libraries/bootstrap/bootstrap.min.css" rel="stylesheet" />
+	<link href="libraries/bootstrap/bootstrap-glyphicons.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet" />
+	<script src="libraries/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
+	<script src="libraries/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+	<script src="libraries/angularjs/angular.min.js" type="text/javascript"></script>
+	<script src="libraries/angular-route/angular-route.min.js" type="text/javascript"></script>
+	<script src="scripts/controllers/mainController.js" type="text/javascript"></script>
+	<script src="scripts/script.js" type="text/javascript"></script>
+</head>
+<body ng-app="cricBuzz">
+	<div class="container" ng-controller="mainCtrl">
+		<div class="row">
+			<div class="col-md-12">
+				<h1>Cric Buzz Application</h1>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3>Filter by Venue</h3>
+					</div>
+					<div class="panel-body">
+						<div class="btn-group" role="group">
+							<input type="button" class="btn btn-default" ng-repeat="venue in venues" ng-class="{active: isVenueActive(venue.name)}" ng-click="venueID(venue.name)" value="{{venue.name}}" />
+							<input type="button" class="btn btn-danger" ng-click="venueReset()" value="Reset"/>
+						</div>
+					</div>
+				</div>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3>Filter by Team</h3>
+					</div>
+					<div class="panel-body">
+						<div class="btn-group" role="group">
+							<input type="button" class="btn btn-default" ng-repeat="team in teams" ng-class="{active: isTeamActive(team.s_name)}" ng-click="teamID(team.s_name)" value="{{team.s_name}}" />
+							<input type="button" class="btn btn-danger" ng-click="teamReset()" value="Reset" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="row">
+					<div class="col-md-4" ng-repeat="match in matchData | filter:teamI | filter:venueI">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<h5>{{ match.team1 }} vs {{ match.team2}}, {{match.matchDesc}}</h5>
+							</div>
+							<div class="panel-body showMatches">
+								<div class="date"><strong>Date: </strong>{{ match.date | date : 'fullDate'}}</div>
+								<div class="venue"><strong>Venue: </strong> {{ match.venue }}</div>
+								<div class="status"><strong>Status: </strong> {{ match.status }}</div>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<footer>&copy 2015 CricBuzz. All rights reserved.</footer>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
